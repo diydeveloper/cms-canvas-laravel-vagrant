@@ -1,0 +1,14 @@
+140,144d139
+<         CmsCanvas\Providers\CmsCanvasServiceProvider::class,
+<         CmsCanvas\Providers\RouteServiceProvider::class,
+<         Collective\Html\HtmlServiceProvider::class,
+<         Intervention\Image\ImageServiceProvider::class,
+< 
+202,208d201
+< 
+<         'Admin'     => CmsCanvas\Support\Facades\Admin::class,
+<         'Content'   => CmsCanvas\Support\Facades\Content::class,
+<         'StringView' => CmsCanvas\Support\Facades\StringView::class,
+<         'Theme'     => CmsCanvas\Support\Facades\Theme::class,
+<         'Form'      => Collective\Html\FormFacade::class,
+<         'HTML'      => Collective\Html\HtmlFacade::class,

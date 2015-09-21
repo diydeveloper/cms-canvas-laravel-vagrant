@@ -17,7 +17,8 @@ apt-get update
 apt-get install -y apache2
 
 # Remove /var/www default
-rm -rf /var/www
+rm -rf /var/www/*
+rm -rf /var/www/.*
 
 # Add ServerName to apache2.conf
 echo "ServerName localhost" >> /etc/apache2/apache2.conf
@@ -128,3 +129,16 @@ mysql -uroot -proot -e "create database cmscanvas"
 
 # Update database credentials in .env config
 sed -i -e 's/DB_DATABASE=.*/DB_DATABASE=cmscanvas/' -e 's/DB_USERNAME=.*/DB_USERNAME=root/' -e 's/DB_PASSWORD=.*/DB_PASSWORD=root/' /var/www/.env
+
+# Patch laravel config files
+patch -R /var/www/config/app.php /vagrant/templates/config_app.patch
+patch -R /var/www/config/auth.php /vagrant/templates/config_auth.patch
+
+# Publish package files
+php artisan vendor:publish
+
+# Run migrations
+php artisan migrate
+
+# Seed database
+php artisan db:seed --class="CmsCanvas\Database\Seeds\DatabaseSeeder"
