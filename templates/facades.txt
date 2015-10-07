@@ -1,0 +1,8 @@
+
+        'Admin'     => CmsCanvas\Support\Facades\Admin::class,
+        'Content'   => CmsCanvas\Support\Facades\Content::class,
+        'Theme'     => CmsCanvas\Support\Facades\Theme::class,
+        'Form'      => Collective\Html\FormFacade::class,
+        'HTML'      => Collective\Html\HtmlFacade::class,
+        'Twig'      => TwigBridge\Facade\Twig::class,
+        'StringView' => TwigBridge\Facade\StringView::class,

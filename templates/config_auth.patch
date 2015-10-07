@@ -1,4 +1,0 @@
-31c31
-<     'model' => App\User::class,
----
->     'model' => CmsCanvas\Models\User::class,

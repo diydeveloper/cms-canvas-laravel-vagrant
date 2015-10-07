@@ -132,9 +132,14 @@ mysql -uroot -proot -e "create database cmscanvas"
 # Update database credentials in .env config
 sed -i -e 's/DB_DATABASE=.*/DB_DATABASE=cmscanvas/' -e 's/DB_USERNAME=.*/DB_USERNAME=root/' -e 's/DB_PASSWORD=.*/DB_PASSWORD=root/' /var/www/.env
 
-# Patch laravel config files
-patch -R /var/www/config/app.php /vagrant/templates/config_app.patch
-patch -R /var/www/config/auth.php /vagrant/templates/config_auth.patch
+# Add Service Providers
+sed -i "/Illuminate\\\View\\\ViewServiceProvider::class,/ r /vagrant/templates/service_providers.txt" /var/www/config/app.php
+
+# Add Facades
+sed -i "/'View'[ ]*=>[ ]*Illuminate\\\Support\\\Facades\\\View::class,/ r /vagrant/templates/facades.txt" /var/www/config/app.php
+
+# Update Auth Model
+sed -i "s/'model'[ ]*=>.*/'model' => CmsCanvas\\\Models\\\User::class,/" /var/www/config/auth.php
 
 # Publish package files
 php artisan vendor:publish
