@@ -1,0 +1,12 @@
+
+[share]
+  comment = Cms Canvas
+  path = /var/www
+  browsable = yes
+  writable = yes
+  read only = no
+  create mask = 0755
+  public = yes
+  guest only = yes
+  force group = root
+  force user = root
