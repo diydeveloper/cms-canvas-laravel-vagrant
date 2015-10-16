@@ -17,8 +17,8 @@ apt-get update
 apt-get install -y apache2
 
 # Remove /var/www default
-rm -rf /var/www/*
-rm -rf /var/www/.*
+rm -rf /var/www/
+mkdir /var/www
 
 # Add ServerName to apache2.conf
 echo "ServerName localhost" >> /etc/apache2/apache2.conf
@@ -149,3 +149,17 @@ php artisan migrate
 
 # Seed database
 php artisan db:seed --class="CmsCanvas\Database\Seeds\DatabaseSeeder"
+
+# ---------------------------------------
+#            Install Samba
+# ---------------------------------------
+
+# Installing Samba
+apt-get install -y samba
+
+# Append share info to samba config
+cat /vagrant/templates/smb.txt >> /etc/samba/smb.conf
+
+# Restart services
+service smbd restart
+service nmbd restart
