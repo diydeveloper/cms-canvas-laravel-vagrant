@@ -105,7 +105,7 @@ mv composer.phar /usr/local/bin/composer
 # ---------------------------------------
 
 # Create project
-composer create-project laravel/laravel /var/www/ --prefer-dist
+composer create-project laravel/laravel /var/www/ "5.2.*"
 
 # Set directory permissions
 chmod -R 777 /var/www/storage/
@@ -115,11 +115,11 @@ chmod -R 777 /var/www/bootstrap/cache/
 cd /var/www
 
 # Add required packages to the laravel framework
-composer config repositories.cmscanvas git https://github.com/diyphpdeveloper/cms-canvas-laravel.git
-composer config repositories.twigbridge git https://github.com/diyphpdeveloper/TwigBridge.git
-composer require laravelcollective/html:5.1.*
+composer config github-protocols https
+composer config repositories.twigbridge '{"type": "vcs", "url": "https://github.com/diyphpdeveloper/cms-canvas.git", "no-api": true}'
+composer config repositories.twigbridge '{"type": "vcs", "url": "https://github.com/diyphpdeveloper/TwigBridge.git", "no-api": true}'
+composer require diyphpdeveloper/twigbridge:'dev-master as 1.0.x-dev'
 composer require diyphpdeveloper/cmscanvas:dev-master
-composer require diyphpdeveloper/twigbridge:dev-master
 composer update
 
 # ---------------------------------------
@@ -141,6 +141,9 @@ sed -i "/'View'[ ]*=>[ ]*Illuminate\\\Support\\\Facades\\\View::class,/ r /vagra
 # Update Auth Model
 sed -i "s/'model'[ ]*=>.*/'model' => CmsCanvas\\\Models\\\User::class,/" /var/www/config/auth.php
 
+# Remove root routes from app/Http/routes.php
+sed -i '/Route::get('\''\/'\''/{:a;N;/});/!ba;N;s/.*\n//};' app/Http/routes.php
+
 # Publish package files
 php artisan vendor:publish
 
@@ -149,6 +152,13 @@ php artisan migrate
 
 # Seed database
 php artisan db:seed --class="CmsCanvas\Database\Seeds\DatabaseSeeder"
+
+# Make public directories writable
+chmod 777 public/diyphpdeveloper/cmscanvas/thumbnails
+chmod 777 public/diyphpdeveloper/cmscanvas/uploads
+
+# Remove the root welcome route
+
 
 # ---------------------------------------
 #            Install Samba
