@@ -1,6 +1,7 @@
 
         CmsCanvas\Providers\CmsCanvasServiceProvider::class,
         CmsCanvas\Providers\RouteServiceProvider::class,
+        CmsCanvas\Providers\EventServiceProvider::class,
+        CmsCanvas\Providers\TwigBridgeServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
-        TwigBridge\ServiceProvider::class,

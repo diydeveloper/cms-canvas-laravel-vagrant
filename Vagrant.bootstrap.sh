@@ -4,6 +4,9 @@
 #          Update The Box
 # ---------------------------------------
 
+# Add PHP 5.6 repository
+add-apt-repository -y ppa:ondrej/php5-5.6
+
 # Downloads the package lists from the repositories
 # and "updates" them to get information on the newest
 # versions of packages and their dependencies
@@ -105,7 +108,7 @@ mv composer.phar /usr/local/bin/composer
 # ---------------------------------------
 
 # Create project
-composer create-project laravel/laravel /var/www/ "5.2.*"
+composer create-project laravel/laravel /var/www/ "5.3.*"
 
 # Set directory permissions
 chmod -R 777 /var/www/storage/
@@ -116,9 +119,9 @@ cd /var/www
 
 # Add required packages to the laravel framework
 composer config github-protocols https
-composer config repositories.twigbridge '{"type": "vcs", "url": "https://github.com/diyphpdeveloper/cms-canvas.git", "no-api": true}'
-composer config repositories.twigbridge '{"type": "vcs", "url": "https://github.com/diyphpdeveloper/TwigBridge.git", "no-api": true}'
-composer require diyphpdeveloper/twigbridge:'dev-master as 1.0.x-dev'
+# composer config repositories.twigbridge '{"type": "vcs", "url": "https://github.com/diyphpdeveloper/cms-canvas.git", "no-api": true}'
+# composer config repositories.twigbridge '{"type": "vcs", "url": "https://github.com/diyphpdeveloper/TwigBridge.git", "no-api": true}'
+# composer require diyphpdeveloper/twigbridge:'dev-master as 1.0.x-dev'
 composer require diyphpdeveloper/cmscanvas:dev-master
 composer update
 
@@ -141,8 +144,8 @@ sed -i "/'View'[ ]*=>[ ]*Illuminate\\\Support\\\Facades\\\View::class,/ r /vagra
 # Update Auth Model
 sed -i "s/'model'[ ]*=>.*/'model' => CmsCanvas\\\Models\\\User::class,/" /var/www/config/auth.php
 
-# Remove root routes from app/Http/routes.php
-sed -i '/Route::get('\''\/'\''/{:a;N;/});/!ba;N;s/.*\n//};' app/Http/routes.php
+# Replace default routes 
+cat /vagrant/templates/web.txt > routes/web.php
 
 # Publish package files
 php artisan vendor:publish
