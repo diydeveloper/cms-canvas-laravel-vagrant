@@ -4,8 +4,8 @@
 #          Update The Box
 # ---------------------------------------
 
-# Add PHP 5.6 repository
-add-apt-repository -y ppa:ondrej/php5-5.6
+# Add PHP repositories
+add-apt-repository -y ppa:ondrej/php
 
 # Downloads the package lists from the repositories
 # and "updates" them to get information on the newest
@@ -50,7 +50,7 @@ service apache2 restart
 # ---------------------------------------
 
 # Installing packages
-apt-get install -y php5 libapache2-mod-php5 php5-mcrypt php5-curl php5-gd
+apt-get install -y php5.6 libapache2-mod-php5.6 php5.6-mcrypt php5.6-curl php5.6-gd php5.6-mbstring php5.6-xml php5.6-zip
 
 # ---------------------------------------
 #          MySQL Setup
@@ -61,7 +61,7 @@ debconf-set-selections <<< 'mysql-server mysql-server/root_password password roo
 debconf-set-selections <<< 'mysql-server mysql-server/root_password_again password root'
  
 # Installing packages
-apt-get install -y mysql-server mysql-client php5-mysql
+apt-get install -y mysql-server mysql-client php5.6-mysql
 
 # ---------------------------------------
 #          PHPMyAdmin Setup
