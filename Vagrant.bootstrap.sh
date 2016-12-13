@@ -50,7 +50,7 @@ service apache2 restart
 # ---------------------------------------
 
 # Installing packages
-apt-get install -y php5.6 libapache2-mod-php5.6 php5.6-mcrypt php5.6-curl php5.6-gd php5.6-mbstring php5.6-xml php5.6-zip
+apt-get install -y php5.6 libapache2-mod-php5.6 php5.6-mcrypt php5.6-curl php5.6-gd php5.6-mbstring php5.6-xml php5.6-zip php-gettext
 
 # ---------------------------------------
 #          MySQL Setup
