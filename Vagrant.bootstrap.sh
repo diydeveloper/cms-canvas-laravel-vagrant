@@ -50,7 +50,7 @@ service apache2 restart
 # ---------------------------------------
 
 # Installing packages
-apt-get install -y php5.6 libapache2-mod-php5.6 php5.6-mcrypt php5.6-curl php5.6-gd php5.6-mbstring php5.6-xml php5.6-zip php-gettext
+apt-get install -y php7.2 libapache2-mod-php7.2 php7.2-curl php7.2-gd php7.2-mbstring php7.2-xml php7.2-zip php-gettext zip unzip
 
 # ---------------------------------------
 #          MySQL Setup
@@ -61,7 +61,7 @@ debconf-set-selections <<< 'mysql-server mysql-server/root_password password roo
 debconf-set-selections <<< 'mysql-server mysql-server/root_password_again password root'
  
 # Installing packages
-apt-get install -y mysql-server mysql-client php5.6-mysql
+apt-get install -y mysql-server mysql-client php7.2-mysql
 
 # ---------------------------------------
 #          PHPMyAdmin Setup
@@ -108,7 +108,7 @@ mv composer.phar /usr/local/bin/composer
 # ---------------------------------------
 
 # Create project
-composer create-project laravel/laravel /var/www/ "5.3.*"
+composer create-project laravel/laravel /var/www/ "5.8.*"
 
 # Set directory permissions
 chmod -R 777 /var/www/storage/
@@ -119,9 +119,9 @@ cd /var/www
 
 # Add required packages to the laravel framework
 composer config github-protocols https
-# composer config repositories.twigbridge '{"type": "vcs", "url": "https://github.com/diyphpdeveloper/cms-canvas.git", "no-api": true}'
-# composer config repositories.twigbridge '{"type": "vcs", "url": "https://github.com/diyphpdeveloper/TwigBridge.git", "no-api": true}'
-# composer require diyphpdeveloper/twigbridge:'dev-master as 1.0.x-dev'
+composer config repositories.cmscanvas '{"type": "vcs", "url": "https://github.com/diyphpdeveloper/cms-canvas.git", "no-api": true}'
+composer config repositories.twigbridge '{"type": "vcs", "url": "https://github.com/diyphpdeveloper/TwigBridge.git", "no-api": true}'
+composer require diyphpdeveloper/twigbridge:'dev-master as 1.0.x-dev'
 composer require diyphpdeveloper/cmscanvas:dev-master
 composer update
 
